@@ -1,0 +1,9 @@
+apiVersion: backup.csye7125-team01.store/v1
+kind: BackupDatabaseSchema
+metadata:
+  labels:
+    app.kubernetes.io/name: backup-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: backupdatabaseschema-sample
+spec:
+  # TODO(user): Add fields here
