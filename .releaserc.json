@@ -1,0 +1,16 @@
+{
+  "branches": [
+    "main"
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    {
+      "plugin": "@semantic-release/github",
+      "assets": [
+        "main-chart-${nextRelease.gitTag}.zip"
+      ]
+    }
+  ]
+}
+
