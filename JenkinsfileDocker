@@ -1,0 +1,151 @@
+pipeline {
+    agent any
+    triggers {
+        githubPush()
+    }
+    environment {
+        CHART_DIR = 'dist/chart/'  
+        GITHUB_REPO = 'cyse7125-sp25-team01/db-backup-operator'  
+        GIT_LOCAL_BRANCH = 'main'
+        GITHUB_TOKEN = credentials('github_token')  
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                script {
+                    cleanWs()  
+                }
+            }
+        }
+        stage('Checkout') {
+            steps {
+                script {
+                    echo "Checking out the repository..."
+                    // Checkout the code from the GitHub repository
+                    checkout scm
+                }
+            }
+        }
+        stage('Helm Dependency Update') {
+            steps {
+                script {
+                    def depUpdateResult = sh(script: "helm dependency update dist/chart/", returnStatus: true)
+                    if (depUpdateResult != 0) {
+                        error "Helm dependency update failed. Please check your chart dependencies."
+                    }
+                }
+            }
+        }
+
+        stage('Helm Build (Package)') {
+            steps {
+                script {
+                    def buildResult = sh(script: "helm dependency build dist/chart/", returnStatus: true)
+                    if (buildResult != 0) {
+                        error "Helm chart build failed. Please check the chart."
+                    }
+                }
+            }
+        }
+
+        stage('Determine Version') {
+            steps {
+                script {
+                    echo 'Running semantic-release to determine new version...'
+                    
+                    // Run semantic-release and capture the output
+                    def srOutput = sh(script: "semantic-release --no-ci", returnStdout: true).trim()
+                    echo "Semantic-release output: ${srOutput}"
+
+                    // Extract the version from the output
+                    def version = sh(script: "echo '${srOutput}' | grep -oP 'The next release version is \\K[0-9]+\\.[0-9]+\\.[0-9]+'", returnStdout: true).trim()
+                    if (version) {
+						env.VERSION = version
+                        echo "Semantic release version: ${version}"
+                        
+                        // Pass the extracted version to Chart.yaml
+                        echo "Updating version in Chart.yaml..."
+                        sh "sed -i 's/^version:.*/version: ${version}/' dist/chart/Chart.yaml"
+                        
+                    } else {
+                        error "Version extraction failed."
+                    }
+                }
+            }
+        }
+
+        stage('Package Helm Chart') {
+            steps {
+                script {
+					sh "zip -r main-chart-${env.VERSION}.zip dist/chart/"
+                    echo "Packaging Helm chart..."
+                    // Package the Helm chart and extract the .tgz file path
+                    //def chartFile = sh(script: "helm package ${env.CHART_DIR} | awk -F 'to: ' '{print \$2}'", returnStdout: true).trim()
+                    //echo "Helm chart packaged: ${chartFile}"
+                }
+            }
+        }
+
+        stage('Create GitHub Release') {
+            steps {
+                script {
+                    echo "Creating GitHub release..."
+
+                    // Find the .tgz file dynamically
+                    def zipFile = sh(script: "ls *.zip", returnStdout: true).trim()
+
+                    echo "Found chart file: ${zipFile}"
+
+                    // Prepare release data for GitHub API
+                    def releaseJson = """
+                    {
+                        "tag_name": "v${zipFile}",
+                        "target_commitish": "main",
+                        "name": "Release v${zipFile}",
+                        "body": "This release contains Helm chart version ${zipFile}",
+                        "draft": false,
+                        "prerelease": false
+                    }
+                    """
+
+                    // Create a GitHub release using the GitHub API
+                    def releaseResponse = sh(script: """
+                        curl -X POST -H "Authorization: token ${env.GITHUB_TOKEN}" -H "Content-Type: application/json" \
+                        -d '${releaseJson}' \
+                        https://api.github.com/repos/${env.GITHUB_REPO}/releases
+                    """, returnStdout: true).trim()
+
+                    echo "Release created: ${releaseResponse}"
+
+                    // Extract the release ID from the response
+                    def releaseId = sh(script: "echo '${releaseResponse}' | jq -r .id", returnStdout: true).trim()
+
+                    // If release creation failed, print the response and stop the process
+                    if (releaseId == 'null') {
+                        error "Failed to create release. Response: ${releaseResponse}"
+                    }
+
+                    // Upload the .tgz file to GitHub release
+                    def uploadUrl = "https://uploads.github.com/repos/${env.GITHUB_REPO}/releases/${releaseId}/assets?name=${zipFile}"
+
+                    sh """
+                    curl -X POST -H "Authorization: token ${env.GITHUB_TOKEN}" -H "Content-Type: application/gzip" \
+                    --data-binary @${zipFile} \
+                    "${uploadUrl}"
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "New version released successfully to GitHub!"
+        }
+
+        failure {
+            echo "Pipeline failed. Please check the logs for errors."
+        }
+    }
+}
