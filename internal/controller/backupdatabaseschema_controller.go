@@ -169,8 +169,7 @@ func (r *BackupDatabaseSchemaReconciler) performBackup(ctx context.Context, spec
 								"apk add --no-cache postgresql-client && " +
 									"pg_dump -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -n $DB_SCHEMA -f /tmp/$BACKUP_FILE && " +
 									"echo 'Backup file created at /tmp/$BACKUP_FILE' && " +
-									"ls -l /tmp && " +
-									"sleep 20",
+									"ls -l /tmp",
 							},
 							Env: []corev1.EnvVar{
 								{
@@ -217,8 +216,7 @@ func (r *BackupDatabaseSchemaReconciler) performBackup(ctx context.Context, spec
 								"echo 'Listing files in /tmp:' && " +
 									"ls -l /tmp && " +
 									"gsutil cp /tmp/$BACKUP_FILE $GCS_PATH && " +
-									"echo 'Backup uploaded to GCS successfully' && " +
-									"sleep 20",
+									"echo 'Backup uploaded to GCS successfully' ",
 							},
 							Env: []corev1.EnvVar{
 								{

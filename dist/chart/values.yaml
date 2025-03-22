@@ -1,84 +1,93 @@
-# [MANAGER]: Manager Deployment Configurations
+#ENC[AES256_GCM,data:DX9Uvm7HImlscYBg2El/n8LXOgbod4Q91giYA3Ed0qxTDJb6n9OvX4DCU5v9,iv:izCDj2oFzQZcT9cmNlI/Dt/SpXKv1NdlF9QFslhkDT0=,tag:v00TXsLGotOFRj8I8atX0w==,type:comment]
 dockerhubSecret:
     auths:
         https://index.docker.io/v1/:
-            username: saimanasg
-            password: dckr_pat_DOOhRG3cNdBQ82kBNsrJ3ecNEqM
+            username: ENC[AES256_GCM,data:UY+k8gVfp7DZ,iv:7sRTeULKB/6OdtFr4cQNL4hJoHUjjlBAEcw47TxivWs=,tag:/tEhOQXC1bJJf4x5a7e3Fg==,type:str]
+            password: ENC[AES256_GCM,data:3nbN/0BMPBXTRXZSZQbPZGO0J1DAx1vzoit3A8UhKhdrySLQ,iv:BuF3VoWTGs2CJu1UQdgBoRKzeFveLG6s3LUNA4I8rG0=,tag:4x768WionmGtCwaidMfKnQ==,type:str]
 controllerManager:
-  replicas: 1
-  imagePullSecrets:
-  - dockerhub-secret
-  container:
-    image:
-      repository: saimanasg/backupdb
-      tag: latest
-    args:
-      - "--leader-elect"
-      - "--metrics-bind-address=:8443"
-      - "--health-probe-bind-address=:8081"
-    resources:
-      limits:
-        cpu: 500m
-        memory: 128Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-    livenessProbe:
-      initialDelaySeconds: 15
-      periodSeconds: 20
-      httpGet:
-        path: /healthz
-        port: 8081
-    readinessProbe:
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      httpGet:
-        path: /readyz
-        port: 8081
+    replicas: ENC[AES256_GCM,data:5g==,iv:LPgA/1JlcBZgPloQihO4pdzcqodo2WM2O1mkxCwwOio=,tag:ByEcLzo3NyCefOsu3HDcHw==,type:int]
+    imagePullSecrets:
+        - ENC[AES256_GCM,data:QlnylteKdvucbDZiW6QD/g==,iv:DZZXT5bDftmEseFkz6dgxrNYEa4JKomaDaRWGWwf5EQ=,tag:pK44Ei7PDhOEPm2kVUIb5g==,type:str]
+    container:
+        image:
+            repository: ENC[AES256_GCM,data:ICzeWn4BSSwyzLlDLgt+wlKQ,iv:c09Pc3eVQi62Q3r3wKrI7DUwiUWwks0SgNcB+7bh1Og=,tag:/lPdUYPIIxEUcGLK5lmZeA==,type:str]
+            tag: ENC[AES256_GCM,data:Lt8FivHH,iv:4xTKH66Cp6IRrk1XEQqT3ZUXTxOcl5UmKNdhEr+Pfak=,tag:FZJOEUKhza3VToGetvbuEQ==,type:str]
+        args:
+            - ENC[AES256_GCM,data:cKwzbaoIq3bRgZ3qLt0=,iv:Nlk1DWT4+xtsJWueufILuO/we7vCVhZevHcIMOsGSvw=,tag:zDSep1WJYsJ4S9CtnDGNOw==,type:str]
+            - ENC[AES256_GCM,data:iu7+SfGQZNeBOmZ8m4w2ZFfDZNj8ocGb/5DLaA==,iv:wJYrWUXOHVfB5Npf26PwJpJU90i3axaZ6RM6k9s+imw=,tag:7FlglIZ3vsgmTvyGYjyy8w==,type:str]
+            - ENC[AES256_GCM,data:lbOMD0fOzivproR9eD7dxC3ux1BMYp9erniuirqd+Lw6,iv:fPWRDVbveRIS2oDRDIINsO2iRNoE00ktnlUawhkijss=,tag:Ek+Qf+g7QCoHGFkXRIMSsg==,type:str]
+        resources:
+            limits:
+                cpu: ENC[AES256_GCM,data:1FIMKg==,iv:KoVfDm0499aBE2ak7uaZ611VoZyU2FNZjcG2wDp5l5w=,tag:WNWg9csXwXwJwp2zbHCCqA==,type:str]
+                memory: ENC[AES256_GCM,data:EENN1rQ=,iv:PSZuXDah+cKeWLbXy1/owFUkQ3PnwVpTxgaAqLOYXDw=,tag:cFJClRv/vbCt5s+RXLQ9bQ==,type:str]
+            requests:
+                cpu: ENC[AES256_GCM,data:xxca,iv:jIC0GKewFXXheSoUAIKDw+HLryH599CpYmklTKXTCLc=,tag:VYPG0sG/bEPNF7dVp/Fh2Q==,type:str]
+                memory: ENC[AES256_GCM,data:IrNmeg==,iv:O+YPBoYn5qNaCzo9TgQekPUoN8oBrczwRgxPfXQFLdc=,tag:hxgShptScVaBjO5YB6Q7kA==,type:str]
+        livenessProbe:
+            initialDelaySeconds: ENC[AES256_GCM,data:KaQ=,iv:/pDaTo8vbnJmEw59F0r+8XaP5VcT12gSn/yUgiaZtKM=,tag:CKGZ4Wzv/j9JJezFgVTnxw==,type:int]
+            periodSeconds: ENC[AES256_GCM,data:s1U=,iv:nRGj5Wxk6LoGfSHzj51kvjsGZQRqTtTND3fFIBIoZLQ=,tag:Pg/RjUDpXP9csRvS3tTHPQ==,type:int]
+            httpGet:
+                path: ENC[AES256_GCM,data:ocSrG9ifm7I=,iv:ZK80/+TqOxyEHS65372ivLpiadinWQ1dRxgXZmswLnA=,tag:wVKZSsaI2n7492N0YKVI4w==,type:str]
+                port: ENC[AES256_GCM,data:pnwT+A==,iv:mHnhinA0A5fb9uHxm/+twsEP8bMEIgsb9PjMMstqihc=,tag:l/9iuUJvJ5S6Ux7xJS4g1Q==,type:int]
+        readinessProbe:
+            initialDelaySeconds: ENC[AES256_GCM,data:Iw==,iv:hqvhB2cW0bpG1pGgZkITz27wCpmd6wxF7QBMV/syhxQ=,tag:u8soNqJFojI+HyEpNOE1+w==,type:int]
+            periodSeconds: ENC[AES256_GCM,data:aTE=,iv:04rA48+YfOHV+fS9JGbu6jXTgbcbuWCQ/eJB8Q75c58=,tag:f/snGgv5RjDupUeAQOCeOQ==,type:int]
+            httpGet:
+                path: ENC[AES256_GCM,data:2MC9v+ECJQ==,iv:qeZoAB9aHS3kgjaeqRUdcm2xpiT58cPPRnQuvVgRNns=,tag:fEalWyb+O/LVSutQd/s19w==,type:str]
+                port: ENC[AES256_GCM,data:ZKCCUg==,iv:bSWybP2hdTW2kx1IpIMMsGLHiB9yFdr9IhP9BJYzFts=,tag:Vyhe9mnvs861mMQCBq1TIQ==,type:int]
+        securityContext:
+            allowPrivilegeEscalation: ENC[AES256_GCM,data:W2lS8U0=,iv:NfIDMSiI2AvLWX4yDFAAnZQpv8rd6/auBYLGoF96euo=,tag:YjhqoYcfL1mZ3x0O5O159g==,type:bool]
+            capabilities:
+                drop:
+                    - ENC[AES256_GCM,data:dPOw,iv:EKpDcIDhNvyLlYcjsYfnFGazdilhu1trrZE6V8qsDqg=,tag:17pYNNKmE4fWvNirK17+3g==,type:str]
     securityContext:
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop:
-          - "ALL"
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
-  terminationGracePeriodSeconds: 10
-  serviceAccountName: backup-operator-controller-manager
-  namespace: backup-operator
-
-# [RBAC]: To enable RBAC (Permissions) configurations
+        runAsNonRoot: ENC[AES256_GCM,data:N+YuXQ==,iv:J1duJA6ZOhCRlBJZ4DVajj3zUn7vbNRyU4sQbgNqld8=,tag:t78gOk371wN0YyfgUy4RaQ==,type:bool]
+        seccompProfile:
+            type: ENC[AES256_GCM,data:+ufl7RN17eVwK9xkXVQ=,iv:Vz2IThMomO2Hsvdl/XsRG0LsFJ8t6LLouBMXuYVX0ww=,tag:Zps6eEtPxUhMdnVGhZxT+w==,type:str]
+    terminationGracePeriodSeconds: ENC[AES256_GCM,data:7/s=,iv:jSXt8O9GilP0T9/VaRolmFQ1RX+Py83DS97xWuejSf8=,tag:MTV2f0grpINifCOAnwdzmA==,type:int]
+    serviceAccountName: ENC[AES256_GCM,data:PsxHfHJJ49kAsL637e1lTzscExOAriB7d4FOJiMOLfY4vg==,iv:Y80bQ4Feqkn0TXwTdWFV9TD6hxn0SVs2C6D+NmbhpKs=,tag:yQANqstglu4MEU2OUl1k6Q==,type:str]
+    namespace: ENC[AES256_GCM,data:QRiswgj2pp4X0hQW6QlJ,iv:3fe1J8YGM/Lr+1oQyITQgFud/IjoJvoxhU9AEwZg1vE=,tag:quZmsjO+tiqW8io4g6uG8A==,type:str]
+#ENC[AES256_GCM,data:1NWLlZdxMjUhAMtaJ7SZTuabz2DCYtOvKxhsPZpMMYR7aAZc7CtT5bUynv1oM+JitqDZ5Q==,iv:LclALNtRhHD3YttakTzylOUXaqhpWhS3CO+8PoRnZGk=,tag:aQ94GzHNviP0Zo2pLu99tA==,type:comment]
 rbac:
-  enable: true
-
-# [CRDs]: To enable the CRDs
+    enable: ENC[AES256_GCM,data:KBZ0ow==,iv:XXuxJXHygJII5oQGwZ5F02VohIFLMaSPYsR8p79MIIQ=,tag:gR8tNs57F/Dd/YQmatYoAw==,type:bool]
+#ENC[AES256_GCM,data:x2Kj8BOVU9cLpwsN/fe9ifYRDU+bapDKZKes,iv:AL9Xq59zvV3gOb5PxCdFHFukvA5pd+ngSSALbM7nD9o=,tag:xW35sRWAXGTakLfcQLVEfQ==,type:comment]
 crd:
-  # This option determines whether the CRDs are included
-  # in the installation process.
-  enable: true
-
-  # Enabling this option adds the "helm.sh/resource-policy": keep
-  # annotation to the CRD, ensuring it remains installed even when
-  # the Helm release is uninstalled.
-  # NOTE: Removing the CRDs will also remove all cert-manager CR(s)
-  # (Certificates, Issuers, ...) due to garbage collection.
-  keep: true
-
-# [METRICS]: Set to true to generate manifests for exporting metrics.
-# To disable metrics export set false, and ensure that the
-# ControllerManager argument "--metrics-bind-address=:8443" is removed.
+    #ENC[AES256_GCM,data:vQ6Lo1qBaH9gsybMZ4YStV/RlzjNd3dbOfFxJZIbvzF7XqJzKe0GpUCXzz8HcyIDCbkaXQQ=,iv:E529kcBnaQFHKrbl9Ob4sLYCGPcRSWWHGzwHq+upc1E=,tag:I3MGVlVlCTZSnQ3bVPxV3g==,type:comment]
+    #ENC[AES256_GCM,data:5j0uiFaHl/G/r/+Re2Z2N71hOn/UHEcQfrSzs4o=,iv:ZukH0os4k2GsZRVjJ56ixN9LWMSmo9syj6/bOQNjgJA=,tag:xUU+ncboY/HzOc5Q3gwhtQ==,type:comment]
+    enable: ENC[AES256_GCM,data:pTWsMA==,iv:Mmdvuv4OyLw9oDoPR0eFHQwDiDCah4sORKwo3oNDjO4=,tag:vfYpEQz9x2brp+iJi78JSQ==,type:bool]
+    #ENC[AES256_GCM,data:oJ/J/GWGk0t55QRWEPbZa8d3eNGcp13zJ8Uk8y5bI/Yk/4Iqq6JCkmwyHX2BP/PMTRb0yz6PcYj5aXbwLU4=,iv:GXVobwLE8qcJhkV+jBo1ppqmG2qd2zzkj3Pg1wxgJI0=,tag:fT6x3b1KKmc+WPuSVPJA6g==,type:comment]
+    #ENC[AES256_GCM,data:EzCe0ic3VaX17H3ziV7Nyx0A1C1pE3ZXjmejvIeEOHj4R1dX58XabX006gBp3wTiFITLwqfcOD7yAsFxHD7q,iv:93Z+EScYW8+rFNLlTANcFHLMV8FrSpCx0tEAWT6oFvA=,tag:8doaawSlvbw3JWaihLexaQ==,type:comment]
+    #ENC[AES256_GCM,data:/FnhBrqpXITLhzi6BQLJ/SkufghhMV32OFP3MjYavIc5,iv:hzzeEn0MgjBOgruiXBvDmZuIwPoB1m23s/WZiP2TRjw=,tag:Zx7uuetj0pptJ9QGrscxkw==,type:comment]
+    #ENC[AES256_GCM,data:QqpeP9Ud4EnW9XaTIq0SHl9NvVyaCABhTYriSu4RlcJkLDeSPQ2NTTXdfICFwR1tsTx2xCPz6kecZBUXG+FcrQ==,iv:QO0eT1qVAoA1zd6lPM3aw4mQjPJdVf8SdkINo127wZE=,tag:6vxD1/vBe2A19Kp5NzJTyg==,type:comment]
+    #ENC[AES256_GCM,data:6oitKj/PiFA5LO3uT5ZuBwBMSi53tWI1nvbe7dHDklA0vgrYqU2O9i9DRIrgPbUgx/YsqKJUpXY=,iv:+t9aIlcDlvLSdXP/foKMy/0A4emTjYxoezoypL2dikA=,tag:LyGyLj+HSa7DP9ABdY3gAA==,type:comment]
+    keep: ENC[AES256_GCM,data:q9Ux8g==,iv:9lR9n/qx+ZxnRqsKGaN447J2q7XV1vbXQPTiSpqrK/U=,tag:BsNwGluhseQp0C+5Jjwz7g==,type:bool]
+#ENC[AES256_GCM,data:Xjvwgxhb49nDcwsJk+T3KQrkeb4UbYSS5FGWe4cv1VrPLaYu+clNLrjix8skGzvXatvMpO4SBrmfLK8meXDfiCP1+EA=,iv:4G7rl2qHHz7axZ9K75hqNh/1A+0jdgQ9nim+On64ius=,tag:OWwJVV+1fKyZMc2j8KS3EQ==,type:comment]
+#ENC[AES256_GCM,data:Xg3AIW1NncqHQCmpbWpnytkTSJWO6teo5ad7EcCnd621tOjrUtTataQkqHBWif2UfiOujXmdX7fj,iv:AJ8DTVIzhkTmwr77EIF9CXdPaK+cBEH1TZifotI5yug=,tag:b/dOroSAfrkCv6Nt0Sz30g==,type:comment]
+#ENC[AES256_GCM,data:oxIbUGdv0IZgsCls7kcFwnf/M2dNbHvtREDygvLsdpBjB8s1jB6+9P1OWgM/IwkRTkRwpWhOcrBFHfLPrzvHqV/2efvloA==,iv:FEMKAxYW0V/etFkdhnGZzX8X0i+W3JaDmp4h6GFWuXE=,tag:+6cWAJc29QAfGdg1dR5mFg==,type:comment]
 metrics:
-  enable: true
-
-# [PROMETHEUS]: To enable a ServiceMonitor to export metrics to Prometheus set true
+    enable: ENC[AES256_GCM,data:j3ySOQ==,iv:W2bWdDVhLlJWqWoFvs+MO8kDTdA/nk+MB/aLSfkuENU=,tag:0BOkDfXu5Vj/daUb9HLMPQ==,type:bool]
+#ENC[AES256_GCM,data:J0cXEPWlT2tJEisj5rXK3obOB/nX/b5VxKiBClt8zmDZx0NnKGvD0l/jtqSJ2T1faRGZUOy2xnV9uJ3CF1b4prYe+O7Fhd4rabOg9t/ghJaRNA==,iv:hp6uX1PQup9zkUJ+eznI85+jsXIZtHxUVlgfz31D4Gk=,tag:hqDrKGi2rMDLSKfXtWXGIA==,type:comment]
 prometheus:
-  enable: false
-
-# [CERT-MANAGER]: To enable cert-manager injection to webhooks set true
+    enable: ENC[AES256_GCM,data:6zuHJyo=,iv:4D1f54Wd+JQ/KGJiO3xghRwwqP52/DbAfE3GzMWIx1Q=,tag:GVEjyQEBaPAzAbodGVcO5g==,type:bool]
+#ENC[AES256_GCM,data:v1mBE1L6N6ZK5vZ6sku87VobcyV7XFl3IlHj8OkmtV/y/a0BHOuxLwoofNShRHUTCCGbVUcwMXzInfgErPauPUNxv523Zw==,iv:ECDGupU4n82P2xEYOxx88nYZZBt3jVTBFq2a1kG5FaA=,tag:FgMze020P0ixCtS8CKiIdg==,type:comment]
 certmanager:
-  enable: false
-
-# [NETWORK POLICIES]: To enable NetworkPolicies set true
+    enable: ENC[AES256_GCM,data:6+PRIqM=,iv:Fosv40Nw6dDcLwixGf6soK2jWSbCYLQ9KyZ76a9v05U=,tag:EkqjGUGbcyBaUjLWnJ5LcA==,type:bool]
+#ENC[AES256_GCM,data:6xJHxtNYbpe7WxAWuYffrDJJr3nf7EazxyuJLCAtDFAy6C7a9qsXpA3SXHQ7fZKB3x+kKfkzZw==,iv:1HOygkgni+KRuFQJ5IC9Y4Wfmg2f4h7w6yC/647/OEI=,tag:74f/dQHQOjkCs7k2aCdFBQ==,type:comment]
 networkPolicy:
-  enable: false
+    enable: ENC[AES256_GCM,data:sMZ7le4=,iv:cp8Q5brpGKokoxgyxCDCQfqPpJaDZsqqTijJVDRxURs=,tag:ZSjWk9/ogt1ll/cHGAn74A==,type:bool]
+webhook:
+    enable: ENC[AES256_GCM,data:tfC4TrE=,iv:gkAkRcLWzb8K5M8x0j986MjmGSaHxAtcA5h8VnREolg=,tag:DNyLd396If+MNHqeFhZiqg==,type:bool]
+sops:
+    kms: []
+    gcp_kms:
+        - resource_id: projects/csye7125-prd/locations/global/keyRings/sops-key/cryptoKeys/sops-key
+          created_at: "2025-03-22T00:25:10Z"
+          enc: CiQAly6HliaFVeIip4cinCrojziOdVnt8/PtDDQASAXTLLuB0B4SSQCbzmwTc+NFpz0HlVv/h6Pa+19ERC5dBSsFd8q1SvqIZ9YYQpcofiAYsJvHqX0SW0filBCdmeKMryiX+9CKFCDtMkCabXVWyz4=
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-03-22T00:25:10Z"
+    mac: ENC[AES256_GCM,data:zhdvNaUaGyyc6tg1i8PRr0yCtPCOwiQAq/grM6pYA2RDaVizCDAr1pCUUU8JJtJPp2S+awIQQuCnGWPe3Q7tK1SwxLwMXGUMPj798PFij1OIpF8gD+69X5ArCWF4H5xNr2nx8f+O0CzNkZIwC+2EOdPyvJTQ4cWDFFGyfKQUE+4=,iv:5VvQ8phJ0M6cF6ZXTooQTAAzU5vtJlNcJ8NBWrMEagM=,tag:3rTkhjJBMkWDkQIO8NrVCQ==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.9.3
